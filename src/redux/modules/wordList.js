@@ -16,6 +16,7 @@ export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case "word/ADD": {
       const newWordList = [...state.list, action.wordList];
+      console.log(newWordList);
       return { list: newWordList };
     }
     default:
