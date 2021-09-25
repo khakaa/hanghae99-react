@@ -48,5 +48,13 @@ const StartButton = styled.button`
   position: relative;
   top: 40vh;
   padding: 5px 15px;
+  cursor: pointer;
+  &:hover {
+    color: #3860ac;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+  &:active {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
 `;
 export default Start;

@@ -12,6 +12,7 @@ const List = (props) => {
       <TopBar>
         <p
           onClick={() => {
+            console.log("clicked");
             history.push("/");
           }}
         >
@@ -59,11 +60,12 @@ const List = (props) => {
 const TopBar = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background: #7eaafe;
   padding: 5px 0px;
   position: fixed;
   top: 0px;
-  width: 650px;
+  width: 100%;
   max-width: inherit;
   z-index: 200;
   & > p {
@@ -71,12 +73,43 @@ const TopBar = styled.div`
     margin: 10px 20px;
     color: #fedb6c;
     font-size: 1.5em;
+    cursor: pointer;
+    &:hover {
+      color: #eebe27;
+    }
+    &:active {
+      position: relative;
+      top: 1px;
+      right: 1px;
+      text-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
+  }
+`;
+
+const PlusButton = styled.button`
+  font-size: 30px;
+  border: none;
+  background-color: #fedb6c;
+  color: white;
+  margin: 0px 15px;
+  padding: 0 7px;
+  cursor: pointer;
+  &:hover {
+    background-color: #eebe27;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+  &:active {
+    position: relative;
+    top: 1px;
+    right: 1px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
 `;
 
 const Wrap = styled.div`
   z-index: 1;
   position: relative;
+  /* overflow: scroll; */
   /* top: 75px; */
   /* display: flex;
   flex-direction: column;
@@ -105,14 +138,5 @@ const Paragraph = styled.p`
 
 const Line = styled.div`
   border-bottom: 1px solid #fedb6c;
-`;
-
-const PlusButton = styled.button`
-  font-size: 30px;
-  border: none;
-  position: relative;
-  left: 395px;
-  background-color: #fedb6c;
-  color: white;
 `;
 export default List;

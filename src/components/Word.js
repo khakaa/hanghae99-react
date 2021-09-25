@@ -13,7 +13,7 @@ const Word = (props) => {
   const exRef = React.useRef(null);
 
   return (
-    <div style={{ height: "100vh" }}>
+    <>
       <TopBar>
         <p
           onClick={() => {
@@ -57,25 +57,35 @@ const Word = (props) => {
           ></Text>
         </InputBox>
       </WordWrap>
-    </div>
+    </>
   );
 };
 
 const TopBar = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background: #7eaafe;
   padding: 5px 0px;
   position: fixed;
   top: 0px;
-  width: 650px;
+  width: 100%;
   max-width: inherit;
-  z-index: 200;
   & > p {
     font-family: "Abril Fatface", cursive;
     margin: 10px 20px;
     color: #fedb6c;
     font-size: 1.5em;
+    cursor: pointer;
+    &:hover {
+      color: #eebe27;
+    }
+    &:active {
+      position: relative;
+      top: 1px;
+      right: 1px;
+      text-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
   }
 `;
 
@@ -83,10 +93,20 @@ const CompletedButton = styled.button`
   font-family: "Abril Fatface", cursive;
   font-size: 20px;
   border: none;
-  position: relative;
-  left: 370px;
+  margin: 0px 15px;
   background-color: #fedb6c;
   color: white;
+  cursor: pointer;
+  &:hover {
+    background-color: #eebe27;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+  &:active {
+    position: relative;
+    top: 1px;
+    right: 1px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
 `;
 
 const WordWrap = styled.div`
