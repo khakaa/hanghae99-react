@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 
-import { addWord } from "../redux/modules/wordList";
+import { createWordFB } from "../redux/modules/wordList";
 
 const Word = (props) => {
   const history = useHistory();
@@ -22,10 +22,10 @@ const Word = (props) => {
         >
           MY DICTIONAY
         </p>
-        <CompletedButton
+        <ButtonToComplete
           onClick={() => {
             dispatch(
-              addWord({
+              createWordFB({
                 word: wordRef.current.value,
                 desc: descRef.current.value,
                 ex: exRef.current.value,
@@ -35,11 +35,11 @@ const Word = (props) => {
           }}
         >
           save
-        </CompletedButton>
+        </ButtonToComplete>
       </TopBar>
 
       <WordWrap>
-        <Title style={{ textAlign: "center" }}>Add Word</Title>
+        <Title style={{ textAlign: "center" }}>New Word</Title>
 
         <InputBox>
           <Text placeholder="word" ref={wordRef}></Text>
@@ -79,17 +79,17 @@ const TopBar = styled.div`
     cursor: pointer;
     &:hover {
       color: #eebe27;
+      position: relative;
+      top: 2px;
+      left: 2px;
     }
     &:active {
-      position: relative;
-      top: 1px;
-      right: 1px;
       text-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     }
   }
 `;
 
-const CompletedButton = styled.button`
+const ButtonToComplete = styled.button`
   font-family: "Abril Fatface", cursive;
   font-size: 20px;
   border: none;
@@ -99,12 +99,12 @@ const CompletedButton = styled.button`
   cursor: pointer;
   &:hover {
     background-color: #eebe27;
+    position: relative;
+    top: 2px;
+    left: 2px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
   &:active {
-    position: relative;
-    top: 1px;
-    right: 1px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
 `;
