@@ -1,16 +1,31 @@
 import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
-import { createWordFB } from "../redux/modules/wordList";
+import { createWordFB, updateWordFB } from "../redux/modules/wordList";
+import { queryEqual } from "@firebase/firestore";
 
 const Word = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
+
   const wordRef = React.useRef(null);
   const descRef = React.useRef(null);
   const exRef = React.useRef(null);
+  const selectWord = useSelector((state) => state.wordList.selectedWord);
+
+  // console.log(selectWord);
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+
+  let query = useQuery();
+  const isEditMode = query.get("edit");
+
+  // console.log(isEditMode);
 
   return (
     <>
@@ -24,35 +39,58 @@ const Word = (props) => {
         </p>
         <ButtonToComplete
           onClick={() => {
-            dispatch(
-              createWordFB({
-                word: wordRef.current.value,
-                desc: descRef.current.value,
-                ex: exRef.current.value,
-              })
-            );
+            // 수정
+            // console.log(
+            //   wordRef.current.value,
+            //   descRef.current.value,
+            //   exRef.current.value
+            // );
+            if (isEditMode === "true") {
+              dispatch(
+                updateWordFB({
+                  id: selectWord.id,
+                  word: wordRef.current.value,
+                  desc: descRef.current.value,
+                  ex: exRef.current.value,
+                })
+              );
+            }
+            // 작성
+            else {
+              dispatch(
+                createWordFB({
+                  word: wordRef.current.value,
+                  desc: descRef.current.value,
+                  ex: exRef.current.value,
+                })
+              );
+            }
             history.push("/list");
           }}
         >
           save
         </ButtonToComplete>
       </TopBar>
-
       <WordWrap>
         <Title style={{ textAlign: "center" }}>New Word</Title>
-
         <InputBox>
-          <Text placeholder="word" ref={wordRef}></Text>
+          <Text
+            placeholder="word"
+            defaultValue={isEditMode ? selectWord.word : ""}
+            ref={wordRef}
+          ></Text>
 
           <Text
             style={{ height: "150px" }}
             placeholder="description"
+            defaultValue={isEditMode ? selectWord.desc : ""}
             ref={descRef}
           ></Text>
 
           <Text
             style={{ height: "150px" }}
             placeholder="example"
+            defaultValue={isEditMode ? selectWord.ex : ""}
             ref={exRef}
           ></Text>
         </InputBox>

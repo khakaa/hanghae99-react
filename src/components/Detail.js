@@ -1,17 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router";
-import { useParams } from "react-router";
-import { useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 
+import { deletewordFB, selectWord } from "../redux/modules/wordList";
+
 const Detail = (props) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const params = useParams();
   const wordIndex = params.index;
   const wordList = useSelector((state) => state.wordList.list);
-  console.log(wordList);
 
   return (
     <>
@@ -23,31 +24,31 @@ const Detail = (props) => {
         >
           MY DICTIONAY
         </p>
+
         <DriveFileRenameOutlineOutlinedIcon
           style={{
             position: "relative",
             left: "50px",
             color: "white",
-            // backgroundColor: "#fedb6c",
             fontSize: "40px",
             margin: "0px 10px 0px 0px",
             padding: "2px",
           }}
           onClick={() => {
-            history.push("/word");
+            dispatch(selectWord(wordList[wordIndex]));
+            history.push("/word/?edit=true");
           }}
-        >
-          수정
-        </DriveFileRenameOutlineOutlinedIcon>
+        ></DriveFileRenameOutlineOutlinedIcon>
+
         <DeleteForeverOutlinedIcon
           style={{
             color: "white",
-            // backgroundColor: "#fedb6c",
             fontSize: "40px",
             margin: "0px 15px 0px 0px",
             padding: "2px",
           }}
           onClick={() => {
+            dispatch(deletewordFB(wordList[wordIndex].id));
             history.push("/list");
           }}
         ></DeleteForeverOutlinedIcon>
@@ -110,5 +111,7 @@ const Button = styled.button`
   }
 `;
 
-const DetailWrap = styled.div``;
+const DetailWrap = styled.div`
+  padding-top: 60px;
+`;
 export default Detail;

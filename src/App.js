@@ -6,8 +6,15 @@ import { db } from "./firebase";
 import Word from "./components/Word";
 import List from "./components/List";
 import Detail from "./components/Detail";
+import { loadWordListFB } from "./redux/modules/wordList";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(loadWordListFB());
+  }, []);
   return (
     <div className="App">
       <div style={{ maxWidth: "400px", margin: "0 auto" }}>

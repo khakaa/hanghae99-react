@@ -4,26 +4,12 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { db } from "../firebase";
-import { collection, getDocs } from "@firebase/firestore";
-
-import { loadWordListFB } from "../redux/modules/wordList";
 
 const List = (props) => {
   const wordList = useSelector((state) => state.wordList.list);
   const history = useHistory();
   const dispatch = useDispatch();
-
-  // React.useEffect(async () => {
-  //   const query = await getDocs(collection(db, "dictionary"));
-  //   console.log(query);
-  //   query.forEach((doc) => {
-  //     console.log(doc.id, doc.data());
-  //   });
-  // }, []);
-
-  React.useEffect(() => {
-    dispatch(loadWordListFB());
-  }, []);
+  // console.log(wordList);
 
   return (
     <>
@@ -50,7 +36,7 @@ const List = (props) => {
             <ListWrap
               key={idx}
               onClick={() => {
-                console.log(idx);
+                // console.log(idx);
                 history.push("/detail/" + idx);
               }}
             >
