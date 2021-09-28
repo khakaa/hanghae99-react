@@ -126,7 +126,7 @@ const TopBar = styled.div`
 
 const WordWrap = styled.div`
   padding-top: 80px;
-  margin: 15px;
+  margin: 0px 15px;
   height: calc(100vh - 80px);
   & > div > input {
     width: 80vw;

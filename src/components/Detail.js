@@ -65,7 +65,7 @@ const Detail = (props) => {
       <div
         style={{
           paddingTop: "80px",
-          margin: "15px",
+          margin: "0px 15px",
           height: "calc(100vh - 80px)",
         }}
       >
