@@ -16,33 +16,28 @@ const Detail = (props) => {
   const wordIndex = params.index;
   const wordList = useSelector((state) => state.wordList.list);
 
-  const updateButtonStyle = {
+  const ButtonStyle = {
     color: "white",
     fontSize: "40px",
     padding: "2px",
   };
 
-  const deleteButtonStyle = {
-    color: "white",
-    fontSize: "40px",
-    padding: "2px",
-  };
   return (
-    <>
+    <div style={{ height: "inherit" }}>
       <TopBar>
         <p
           onClick={() => {
             history.push("/");
           }}
         >
-          MY DICTIONAY
+          MY DICTIONARY
         </p>
         <Tooltip title="edit">
           <IconButton
-            style={{ padding: "4px", position: "relative", left: "35px" }}
+            style={{ padding: "4px", position: "relative", left: "20px" }}
           >
             <DriveFileRenameOutlineOutlinedIcon
-              style={updateButtonStyle}
+              style={ButtonStyle}
               onClick={() => {
                 dispatch(selectWord(wordList[wordIndex]));
                 history.push("/word/?edit=true");
@@ -56,7 +51,7 @@ const Detail = (props) => {
             style={{ padding: "4px", position: "relative", right: "10px" }}
           >
             <DeleteForeverOutlinedIcon
-              style={deleteButtonStyle}
+              style={ButtonStyle}
               onClick={() => {
                 window.alert("삭제 하시겠습니까?");
                 dispatch(deletewordFB(wordList[wordIndex].id));
@@ -67,7 +62,13 @@ const Detail = (props) => {
         </Tooltip>
       </TopBar>
 
-      <div style={{ paddingTop: "50px", margin: "15px" }}>
+      <div
+        style={{
+          paddingTop: "80px",
+          margin: "15px",
+          height: "calc(100vh - 80px)",
+        }}
+      >
         <Title>Detail Page</Title>
         <DetailWrap>
           <p>{wordList[wordIndex] ? wordList[wordIndex].word : ""}</p>
@@ -75,7 +76,7 @@ const Detail = (props) => {
           <p>{wordList[wordIndex] ? wordList[wordIndex].ex : ""}</p>
         </DetailWrap>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -87,7 +88,7 @@ const TopBar = styled.div`
   position: fixed;
   top: 0px;
   padding: 4px 0px;
-  width: 100%;
+  width: 375px;
   max-width: inherit;
   & > p {
     font-family: "Abril Fatface", cursive;
@@ -117,7 +118,6 @@ const DetailWrap = styled.div`
   border: 16px solid #fedb6c;
   border-radius: 5px;
   padding: 100px 0px;
-  /* background-color: #fae9b5; */
   & > p {
     font-family: "Libre Baskerville", serif;
     font-size: 18px;

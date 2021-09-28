@@ -18,8 +18,6 @@ const Word = (props) => {
   const exRef = React.useRef(null);
   const selectWord = useSelector((state) => state.wordList.selectedWord);
 
-  // console.log(selectWord);
-
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
@@ -27,17 +25,15 @@ const Word = (props) => {
   let query = useQuery();
   const isEditMode = query.get("edit");
 
-  // console.log(isEditMode);
-
   return (
-    <>
+    <div style={{ height: "inherit" }}>
       <TopBar>
         <p
           onClick={() => {
             history.push("/");
           }}
         >
-          MY DICTIONAY
+          MY DICTIONARY
         </p>
         <Tooltip title="save" style={{ position: "relative", right: "10px" }}>
           <IconButton>
@@ -96,7 +92,7 @@ const Word = (props) => {
           ></Text>
         </InputBox>
       </WordWrap>
-    </>
+    </div>
   );
 };
 
@@ -108,7 +104,7 @@ const TopBar = styled.div`
   padding: 4px 0px;
   position: fixed;
   top: 0px;
-  width: 100%;
+  width: 375px;
   max-width: inherit;
   & > p {
     font-family: "Abril Fatface", cursive;
@@ -131,6 +127,7 @@ const TopBar = styled.div`
 const WordWrap = styled.div`
   padding-top: 80px;
   margin: 15px;
+  height: calc(100vh - 80px);
   & > div > input {
     width: 80vw;
     height: 6vh;

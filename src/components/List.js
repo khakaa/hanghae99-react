@@ -15,20 +15,19 @@ const List = (props) => {
     fontSize: "40px",
     textDecoration: "bold",
     color: "white",
-    // margin: "0px 10px 0px 0px",
     cursor: "pointer",
   };
   // console.log(wordList);
 
   return (
-    <>
+    <div style={{ height: "inherit" }}>
       <TopBar>
         <p
           onClick={() => {
             history.push("/");
           }}
         >
-          MY DICTIONAY
+          MY DICTIONARY
         </p>
         <Tooltip title="add">
           <IconButton
@@ -73,7 +72,7 @@ const List = (props) => {
           );
         })}
       </Wrap>
-    </>
+    </div>
   );
 };
 
@@ -85,7 +84,7 @@ const TopBar = styled.div`
   padding: 4px 0px;
   position: fixed;
   top: 0px;
-  width: 100%;
+  width: 375px;
   max-width: inherit;
   z-index: 200;
   & > p {
@@ -107,10 +106,12 @@ const TopBar = styled.div`
 `;
 
 const Wrap = styled.div`
-  height: 100%;
+  height: inherit;
   z-index: 1;
   position: relative;
   padding-top: 10vh;
+  overflow-y: scroll;
+  height: calc(100vh - 10vh);
 `;
 
 const ListWrap = styled.div`
@@ -120,9 +121,7 @@ const ListWrap = styled.div`
   background: white;
 
   & > div > p {
-    /* font-family: "Poppins", sans-serif; */
     font-family: "Libre Baskerville", serif;
-    /* font-family: "Lora", serif; */
     padding: 0px 10px 0px 10px;
     word-break: break-all;
     word-wrap: normal;

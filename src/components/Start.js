@@ -7,7 +7,7 @@ const Start = (props) => {
 
   return (
     <StartWrap>
-      <Title>WY DICTIONAY</Title>
+      <Title>MY DICTIONARY</Title>
       <SubTitle>YOU CAN ALWAYS BETTER</SubTitle>
 
       <StartButton onClick={() => history.push("/list")}>START</StartButton>
@@ -17,7 +17,7 @@ const Start = (props) => {
 
 const StartWrap = styled.div`
   background: #7eaafe;
-  height: 100vh;
+  height: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;

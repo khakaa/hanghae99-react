@@ -17,7 +17,10 @@ function App() {
     dispatch(loadWordListFB());
   }, []);
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{ height: "100vh", maxWidth: "375px", margin: "0 auto" }}
+    >
       <Wrap>
         <Route path="/" exact component={Start} />
         <Route path="/word" exact component={Word} />
@@ -29,9 +32,8 @@ function App() {
 }
 
 const Wrap = styled.div`
-  max-width: 400px;
   margin: 0 auto;
-  height: 100vh;
+  height: inherit;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 `;
 
