@@ -4,6 +4,8 @@ import { useHistory, useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 
 import { deletewordFB, selectWord } from "../redux/modules/wordList";
 
@@ -14,6 +16,17 @@ const Detail = (props) => {
   const wordIndex = params.index;
   const wordList = useSelector((state) => state.wordList.list);
 
+  const updateButtonStyle = {
+    color: "white",
+    fontSize: "40px",
+    padding: "2px",
+  };
+
+  const deleteButtonStyle = {
+    color: "white",
+    fontSize: "40px",
+    padding: "2px",
+  };
   return (
     <>
       <TopBar>
@@ -24,41 +37,44 @@ const Detail = (props) => {
         >
           MY DICTIONAY
         </p>
+        <Tooltip title="edit">
+          <IconButton
+            style={{ padding: "4px", position: "relative", left: "35px" }}
+          >
+            <DriveFileRenameOutlineOutlinedIcon
+              style={updateButtonStyle}
+              onClick={() => {
+                dispatch(selectWord(wordList[wordIndex]));
+                history.push("/word/?edit=true");
+              }}
+            ></DriveFileRenameOutlineOutlinedIcon>
+          </IconButton>
+        </Tooltip>
 
-        <DriveFileRenameOutlineOutlinedIcon
-          style={{
-            position: "relative",
-            left: "50px",
-            color: "white",
-            fontSize: "40px",
-            margin: "0px 10px 0px 0px",
-            padding: "2px",
-          }}
-          onClick={() => {
-            dispatch(selectWord(wordList[wordIndex]));
-            history.push("/word/?edit=true");
-          }}
-        ></DriveFileRenameOutlineOutlinedIcon>
-
-        <DeleteForeverOutlinedIcon
-          style={{
-            color: "white",
-            fontSize: "40px",
-            margin: "0px 15px 0px 0px",
-            padding: "2px",
-          }}
-          onClick={() => {
-            dispatch(deletewordFB(wordList[wordIndex].id));
-            history.push("/list");
-          }}
-        ></DeleteForeverOutlinedIcon>
+        <Tooltip title="delete">
+          <IconButton
+            style={{ padding: "4px", position: "relative", right: "10px" }}
+          >
+            <DeleteForeverOutlinedIcon
+              style={deleteButtonStyle}
+              onClick={() => {
+                window.alert("삭제 하시겠습니까?");
+                dispatch(deletewordFB(wordList[wordIndex].id));
+                history.push("/list");
+              }}
+            ></DeleteForeverOutlinedIcon>
+          </IconButton>
+        </Tooltip>
       </TopBar>
 
-      <DetailWrap>
-        <p>{wordList[wordIndex].word}</p>
-        <p>{wordList[wordIndex].desc}</p>
-        <p>{wordList[wordIndex].ex}</p>
-      </DetailWrap>
+      <div style={{ paddingTop: "50px", margin: "15px" }}>
+        <Title>Detail Page</Title>
+        <DetailWrap>
+          <p>{wordList[wordIndex] ? wordList[wordIndex].word : ""}</p>
+          <p>{wordList[wordIndex] ? wordList[wordIndex].desc : ""}</p>
+          <p>{wordList[wordIndex] ? wordList[wordIndex].ex : ""}</p>
+        </DetailWrap>
+      </div>
     </>
   );
 };
@@ -68,9 +84,9 @@ const TopBar = styled.div`
   align-items: center;
   justify-content: space-between;
   background: #7eaafe;
-  padding: 5px 0px;
   position: fixed;
   top: 0px;
+  padding: 4px 0px;
   width: 100%;
   max-width: inherit;
   & > p {
@@ -91,27 +107,25 @@ const TopBar = styled.div`
   }
 `;
 
-const Button = styled.button`
+const Title = styled.h2`
   font-family: "Abril Fatface", cursive;
-  font-size: 20px;
-  border: none;
-  margin: 0px 15px;
-  background-color: #fedb6c;
-  color: white;
-  cursor: pointer;
-  &:hover {
-    background-color: #eebe27;
-    position: relative;
-    top: 2px;
-    left: 2px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  }
-  &:active {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  }
+  text-align: center;
+  color: #626262;
 `;
 
 const DetailWrap = styled.div`
-  padding-top: 60px;
+  border: 16px solid #fedb6c;
+  border-radius: 5px;
+  padding: 100px 0px;
+  /* background-color: #fae9b5; */
+  & > p {
+    font-family: "Libre Baskerville", serif;
+    font-size: 18px;
+    text-align: center;
+    padding: 0px 30px;
+    margin: 50px 0px;
+    word-break: break-all;
+    word-wrap: normal;
+  }
 `;
 export default Detail;

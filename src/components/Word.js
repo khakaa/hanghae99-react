@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import SaveAltIcon from "@mui/icons-material/SaveAlt";
 
 import { createWordFB, updateWordFB } from "../redux/modules/wordList";
-import { queryEqual } from "@firebase/firestore";
 
 const Word = (props) => {
   const history = useHistory();
@@ -37,40 +39,39 @@ const Word = (props) => {
         >
           MY DICTIONAY
         </p>
-        <ButtonToComplete
-          onClick={() => {
-            // 수정
-            // console.log(
-            //   wordRef.current.value,
-            //   descRef.current.value,
-            //   exRef.current.value
-            // );
-            if (isEditMode === "true") {
-              dispatch(
-                updateWordFB({
-                  id: selectWord.id,
-                  word: wordRef.current.value,
-                  desc: descRef.current.value,
-                  ex: exRef.current.value,
-                })
-              );
-            }
-            // 작성
-            else {
-              dispatch(
-                createWordFB({
-                  word: wordRef.current.value,
-                  desc: descRef.current.value,
-                  ex: exRef.current.value,
-                })
-              );
-            }
-            history.push("/list");
-          }}
-        >
-          save
-        </ButtonToComplete>
+        <Tooltip title="save" style={{ position: "relative", right: "10px" }}>
+          <IconButton>
+            <SaveAltIcon
+              style={{ fontSize: "33px", color: "white" }}
+              onClick={() => {
+                // 수정
+                if (isEditMode === "true") {
+                  dispatch(
+                    updateWordFB({
+                      id: selectWord.id,
+                      word: wordRef.current.value,
+                      desc: descRef.current.value,
+                      ex: exRef.current.value,
+                    })
+                  );
+                }
+                // 작성
+                else {
+                  dispatch(
+                    createWordFB({
+                      word: wordRef.current.value,
+                      desc: descRef.current.value,
+                      ex: exRef.current.value,
+                    })
+                  );
+                }
+                history.push("/list");
+              }}
+            ></SaveAltIcon>
+          </IconButton>
+        </Tooltip>
       </TopBar>
+
       <WordWrap>
         <Title style={{ textAlign: "center" }}>New Word</Title>
         <InputBox>
@@ -104,7 +105,7 @@ const TopBar = styled.div`
   align-items: center;
   justify-content: space-between;
   background: #7eaafe;
-  padding: 5px 0px;
+  padding: 4px 0px;
   position: fixed;
   top: 0px;
   width: 100%;
@@ -127,36 +128,9 @@ const TopBar = styled.div`
   }
 `;
 
-const ButtonToComplete = styled.button`
-  font-family: "Abril Fatface", cursive;
-  font-size: 20px;
-  border: none;
-  margin: 0px 15px;
-  background-color: #fedb6c;
-  color: white;
-  cursor: pointer;
-  &:hover {
-    background-color: #eebe27;
-    position: relative;
-    top: 2px;
-    left: 2px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  }
-  &:active {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  }
-`;
-
 const WordWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  top: 100px;
-  /* border: 2px solid #7eaafe; */
+  padding-top: 80px;
   margin: 15px;
-  padding-bottom: 16px;
-  position: relative;
-
   & > div > input {
     width: 80vw;
     height: 6vh;
@@ -167,6 +141,7 @@ const Title = styled.h2`
   font-family: "Abril Fatface", cursive;
   color: #626262;
 `;
+
 const InputBox = styled.div`
   border: 3px solid #fedb6c;
   padding: 16px 16px 0px 16px;

@@ -2,13 +2,22 @@ import React from "react";
 // import { useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
-import { db } from "../firebase";
+import { useSelector } from "react-redux";
+
+import AddIcon from "@mui/icons-material/Add";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 
 const List = (props) => {
   const wordList = useSelector((state) => state.wordList.list);
   const history = useHistory();
-  const dispatch = useDispatch();
+  const plusButtonStyle = {
+    fontSize: "40px",
+    textDecoration: "bold",
+    color: "white",
+    // margin: "0px 10px 0px 0px",
+    cursor: "pointer",
+  };
   // console.log(wordList);
 
   return (
@@ -21,13 +30,18 @@ const List = (props) => {
         >
           MY DICTIONAY
         </p>
-        <PlusButton
-          onClick={() => {
-            history.push("/word");
-          }}
-        >
-          +
-        </PlusButton>
+        <Tooltip title="add">
+          <IconButton
+            style={{ padding: "4px", position: "relative", right: "10px" }}
+          >
+            <AddIcon
+              style={plusButtonStyle}
+              onClick={() => {
+                history.push("/word");
+              }}
+            ></AddIcon>
+          </IconButton>
+        </Tooltip>
       </TopBar>
 
       <Wrap>
@@ -68,7 +82,7 @@ const TopBar = styled.div`
   align-items: center;
   justify-content: space-between;
   background: #7eaafe;
-  padding: 5px 0px;
+  padding: 4px 0px;
   position: fixed;
   top: 0px;
   width: 100%;
@@ -92,35 +106,11 @@ const TopBar = styled.div`
   }
 `;
 
-const PlusButton = styled.button`
-  font-size: 30px;
-  border: none;
-  background-color: #fedb6c;
-  color: white;
-  margin: 0px 15px;
-  padding: 0 7px;
-  cursor: pointer;
-  &:hover {
-    background-color: #eebe27;
-    position: relative;
-    top: 2px;
-    left: 2px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  }
-  &:active {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  }
-`;
-
 const Wrap = styled.div`
+  height: 100%;
   z-index: 1;
   position: relative;
   padding-top: 10vh;
-  /* overflow: scroll; */
-  /* top: 75px; */
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
 `;
 
 const ListWrap = styled.div`
@@ -130,6 +120,9 @@ const ListWrap = styled.div`
   background: white;
 
   & > div > p {
+    /* font-family: "Poppins", sans-serif; */
+    font-family: "Libre Baskerville", serif;
+    /* font-family: "Lora", serif; */
     padding: 0px 10px 0px 10px;
     word-break: break-all;
     word-wrap: normal;
@@ -141,11 +134,6 @@ const ListWrap = styled.div`
     top: 3px;
     left: 3px;
   }
-`;
-
-const Paragraph = styled.p`
-  text-decoration: underline;
-  font-weight: bold;
 `;
 
 const Line = styled.div`
