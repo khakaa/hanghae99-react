@@ -5,18 +5,21 @@ import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+require("dotenv").config();
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCpX_kSxIUZvqDMcp4V7PBTg9-kF85NVM0",
-  authDomain: "my-dictionary-aefef.firebaseapp.com",
-  projectId: "my-dictionary-aefef",
-  storageBucket: "my-dictionary-aefef.appspot.com",
-  messagingSenderId: "140924957374",
-  appId: "1:140924957374:web:61c8caa385186feba2a4ef",
-  measurementId: "G-DJHFR0CY91",
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId,
+  measurementId: process.env.REACT_APP_measurementId,
 };
+
 // firebaseConfig 정보로 firebase 시작
+export const apiKey = process.env.REACT_APP_apiKey;
 initializeApp(firebaseConfig);
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
